@@ -1,0 +1,36 @@
+﻿# Archivos de Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Archivos de build
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.ilk
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+.vscode/
+
+# Paquetes de NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Configuración de usuario
+*.env
+appsettings.json
+appsettings.Development.json
+
+# Otros archivos y carpetas de compilación
+project.lock.json
+project.fragment.lock.json
+artifacts/
