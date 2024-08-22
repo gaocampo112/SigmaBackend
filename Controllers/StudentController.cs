@@ -26,23 +26,40 @@ namespace SigmaBackend.Controllers
         [HttpGet("GetStudentInfo/{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var student = await _studentService.Get(id);
-            if (student == null)
-            {
-                return NotFound("Info not found");
-            }
-
             try
             {
+                var student = await _studentService.Get(id);
+                if (student == null)
+                {
+                    return NotFound("Info not found");
+                }
+
                 return Ok(student);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-
         }
-        
+
+        [HttpGet("GetAllStudents")]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var students = await _studentService.GetAll();
+                if (students == null || !students.Any())
+                {
+                    return NotFound("No students found");
+                }
+
+                return Ok(students);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("SaveStudentInfo")]
         public async Task<IActionResult> Save([FromBody] Student student)
@@ -62,10 +79,10 @@ namespace SigmaBackend.Controllers
         [HttpPut("UpdateStudentInfo/{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] Student student)
         {
-            var proof = await _studentService.Update(id, student); ; 
             try
             {
-                if(proof == true)
+                var proof = await _studentService.Update(id, student);
+                if (proof == true)
                 {
                     return Ok("Info saved!");
                 }
@@ -83,9 +100,9 @@ namespace SigmaBackend.Controllers
         [HttpDelete("DeleteStudentInfo/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var proof = await _studentService.Delete(id);
             try
             {
+                var proof = await _studentService.Delete(id);
                 if (proof == true)
                 {
                     return Ok("Info Deleted!");

@@ -1,4 +1,5 @@
-﻿using SigmaBackend.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SigmaBackend.Models;
 
 
 namespace SigmaBackend.Services
@@ -14,6 +15,11 @@ namespace SigmaBackend.Services
         public async Task<Subject> Get(Guid id)
         {
             return await _sigmaContext.Subjects.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Subject>> GetAll()
+        {
+            return await _sigmaContext.Subjects.ToListAsync();
         }
 
         public async Task Save(Subject subject)
@@ -51,6 +57,7 @@ namespace SigmaBackend.Services
     public interface ISubjectService
     {
         Task<Subject> Get(Guid id);
+        Task<IEnumerable<Subject>> GetAll();
         Task Save(Subject subject);
         Task<bool> Update(Guid id, Subject subject);
         Task<bool> Delete(Guid id);

@@ -23,14 +23,14 @@ namespace SigmaBackend.Controllers
         [HttpGet("GetGradetInfo/{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var grade = await _gradeService.Get(id);
-            if (grade == null)
-            {
-                return NotFound("Info not found");
-            }
-
             try
             {
+                var grade = await _gradeService.Get(id);
+                if (grade == null)
+                {
+                    return NotFound("Info not found");
+                }
+
                 return Ok(grade);
             }
             catch (Exception ex)
@@ -103,9 +103,9 @@ namespace SigmaBackend.Controllers
         [HttpDelete("DeleteGradeInfo/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var proof = await _gradeService.Delete(id);
             try
             {
+                var proof = await _gradeService.Delete(id);
                 if (proof == true)
                 {
                     return Ok("Info Deleted!");

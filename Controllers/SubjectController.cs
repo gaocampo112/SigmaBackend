@@ -22,14 +22,13 @@ namespace SigmaBackend.Controllers
         [HttpGet("GetSubjecttInfo/{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var subject = await _subjectService.Get(id);
-            if (subject == null)
-            {
-                return NotFound("Info not found");
-            }
-
             try
             {
+                var subject = await _subjectService.Get(id);
+                if (subject == null)
+                {
+                    return NotFound("Info not found");
+                }
                 return Ok(subject);
             }
             catch (Exception ex)
@@ -37,6 +36,25 @@ namespace SigmaBackend.Controllers
                 return BadRequest(ex.Message);
             }
 
+        }
+
+        [HttpGet("GetAllSubjects")]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var subjects = await _subjectService.GetAll();
+                if (subjects == null || !subjects.Any())
+                {
+                    return NotFound("No subjects found");
+                }
+
+                return Ok(subjects);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("SaveSubjectInfo")]
@@ -57,9 +75,9 @@ namespace SigmaBackend.Controllers
         [HttpPut("UpdateSubjectInfo/{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] Subject subject)
         {
-            var proof = await _subjectService.Update(id, subject); ;
             try
             {
+                var proof = await _subjectService.Update(id, subject);
                 if (proof == true)
                 {
                     return Ok("Info saved!");

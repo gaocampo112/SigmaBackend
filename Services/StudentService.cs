@@ -10,7 +10,7 @@ namespace SigmaBackend.Services
     public class StudentService : IStudentService
     {
         SigmaContext _sigmaContext;
-        public StudentService(SigmaContext sigmaContext) 
+        public StudentService(SigmaContext sigmaContext)
         {
             _sigmaContext = sigmaContext;
         }
@@ -20,6 +20,10 @@ namespace SigmaBackend.Services
             return await _sigmaContext.Students.FindAsync(id);
         }
 
+        public async Task<IEnumerable<Student>> GetAll()
+        {
+            return await _sigmaContext.Students.ToListAsync();
+        }
 
         public async Task Save(Student student)
         {
@@ -41,7 +45,7 @@ namespace SigmaBackend.Services
                 await _sigmaContext.SaveChangesAsync();
                 return true;
             }
-            return false;       
+            return false;
         }
 
         public async Task<bool> Delete(Guid id)
@@ -61,6 +65,7 @@ namespace SigmaBackend.Services
     public interface IStudentService
     {
         Task<Student> Get(Guid id);
+        Task<IEnumerable<Student>> GetAll();
         Task Save(Student student);
         Task<bool> Update(Guid id, Student student);
         Task<bool> Delete(Guid id);

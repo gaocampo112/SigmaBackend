@@ -25,14 +25,14 @@ namespace SigmaBackend.Controllers
         [HttpGet("GetTeacherInfo/{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var teacher = await _teacherService.Get(id);
-            if (teacher == null)
-            {
-                return NotFound("Info not found");
-            }
-
             try
             {
+                var teacher = await _teacherService.Get(id);
+                if (teacher == null)
+                {
+                    return NotFound("Info not found");
+                }
+
                 return Ok(teacher);
             }
             catch (Exception ex)
@@ -60,9 +60,9 @@ namespace SigmaBackend.Controllers
         [HttpPut("UpdateTeacherInfo/{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] Teacher teacher)
         {
-            var proof = await _teacherService.Update(id, teacher); ;
             try
             {
+                var proof = await _teacherService.Update(id, teacher);
                 if (proof == true)
                 {
                     return Ok("Info saved!");
