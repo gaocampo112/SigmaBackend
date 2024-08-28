@@ -42,6 +42,25 @@ namespace SigmaBackend.Controllers
 
         }
 
+        [HttpGet("GetAllTeachers")]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var teachers = await _teacherService.GetAll();
+                if (teachers == null || !teachers.Any())
+                {
+                    return NotFound("No students found");
+                }
+
+                return Ok(teachers);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("SaveTeacherInfo")]
         public async Task<IActionResult> Save([FromBody] Teacher teacher)
         {

@@ -19,7 +19,7 @@ namespace SigmaBackend.Controllers
             _subjectService = subjectService;
         }
 
-        [HttpGet("GetSubjecttInfo/{id}")]
+        [HttpGet("GetSubjectInfo/{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
             try

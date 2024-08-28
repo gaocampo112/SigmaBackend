@@ -40,6 +40,25 @@ namespace SigmaBackend.Controllers
 
         }
 
+        [HttpGet("GetAllGrades")]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var grades = await _gradeService.GetAll();
+                if (grades == null || !grades.Any())
+                {
+                    return NotFound("No grades found");
+                }
+
+                return Ok(grades);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("SaveGradeInfo")]
         public async Task<IActionResult> Save([FromBody] GradeDTO gradeDto)
         {

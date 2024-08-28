@@ -1,4 +1,5 @@
-﻿using SigmaBackend.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SigmaBackend.Models;
 
 namespace SigmaBackend.Services
 {
@@ -14,6 +15,11 @@ namespace SigmaBackend.Services
         public async Task<Grade> Get(Guid id)
         {
             return await _sigmaContext.Grades.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Grade>> GetAll()
+        {
+            return await _sigmaContext.Grades.ToListAsync();
         }
 
         public async Task Save(Grade grade)
@@ -53,6 +59,7 @@ namespace SigmaBackend.Services
     public interface IGradeService
     {
         Task<Grade> Get(Guid id);
+        Task<IEnumerable<Grade>> GetAll();
         Task Save(Grade grade);
         Task<bool> Update(Guid id, Grade grade);
         Task<bool> Delete(Guid id);
